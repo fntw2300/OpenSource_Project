@@ -1,0 +1,45 @@
+-- 회원 테이블
+CREATE TABLE MEMBER (
+    MEMID NVARCHAR2( 10 ) NOT NULL  PRIMARY KEY,
+    NICKNAME NVARCHAR2( 10 ) NOT NULL,
+    BIRTH NVARCHAR2( 20 ) NOT NULL,
+    GENDER NVARCHAR2( 5 ) NOT NULL,
+    EMAIL NVARCHAR2( 20 ) NOT NULL
+);
+-- ---------------------------------------------------------------
+-- 영화 테이블
+CREATE TABLE MOVIE (
+    MID NUMBER(5) NOT NULL PRIMARY KEY,
+    MNAME NVARCHAR2( 20 ) NOT NULL,
+    OPENING NVARCHAR2( 20 ) NOT NULL,
+    RUNTIME NVARCHAR2( 10 ) NOT NULL,
+    COUNTARY NVARCHAR2( 15 ) NOT NULL,
+    GENRE NVARCHAR2( 10 ) NOT NULL
+);
+-- ---------------------------------------------------------------
+-- 리뷰 테이블
+CREATE TABLE REVIEW (
+    RENO NUMBER( 5 ) NOT NULL,
+    MID NUMBER( 5 ) NOT NULL,
+    RE_NAME NVARCHAR2( 30 ) NOT NULL,
+    RE_CONTENT NVARCHAR2( 200 ) NOT NULL,
+    MEMID NVARCHAR2( 10 ),
+     FOREIGN KEY(MEMID) REFERENCES MEMBER(MEMID),
+     PRIMARY KEY (RENO, MID)
+);
+-- ---------------------------------------------------------------
+-- 감독 테이블
+CREATE TABLE DIRECTOR (
+    DID NUMBER( 5 ) NOT NULL PRIMARY KEY,
+    DNAME NVARCHAR2( 10 ) NOT NULL,
+    COUNTARY NVARCHAR2( 15 )  NOT NULL,
+    BIRTH NVARCHAR2( 20 ) NOT NULL
+);
+-- ---------------------------------------------------------------
+-- 배우 테이블
+CREATE TABLE ACTOR (
+    AID NUMBER( 5 ) NOT NULL PRIMARY KEY,
+    ANAME NVARCHAR2( 10 ) NOT NULL,
+    COUNTARY NVARCHAR2( 15 ) NOT NULL,
+    BIRTH NVARCHAR2( 20 ) NOT NULL
+);
