@@ -86,7 +86,7 @@ CREATE TABLE ADMIN (
 CREATE TABLE CATEGORY_RESP (
     ADMIN_ID NUMBER( 5 ),
     CATEGORY_ID NUMBER( 10 ),
-    primary key(ADMIN_ID, CATEGORY_ID),
+    PRIMARY KEY(ADMIN_ID, CATEGORY_ID),
         FOREIGN KEY(ADMIN_ID, CATEGORY_ID) REFERENCES CATEGORY_RESP(ADMIN_ID, CATEGORY_ID) ON DELETE SET NULL
 );
 -- ---------------------------------------------------------------
@@ -98,19 +98,17 @@ CREATE TABLE DB_NOTICEBOARD (
     MEMID NVARCHAR2( 10 ), 
     ADMIN_ID NUMBER( 5 ),
      CATEGORY_ID NUMBER( 10 ),
-         primary key(dbno),
+         PRIMARY KEY(DBNO),
          FOREIGN KEY(ADMIN_ID,CATEGORY_ID) REFERENCES CATEGORY_RESP(ADMIN_ID, CATEGORY_ID),
          FOREIGN KEY(MEMID) REFERENCES MEMBER(MEMID) ON DELETE CASCADE
 );
-
--- =================================================================잠시 보류
 -- ---------------------------------------------------------------
 -- 평가 테이블
 CREATE TABLE ASSESSMENT (
     ASSNAME NVARCHAR2( 20 ) NOT NULL primary key,
     MEMID NVARCHAR2( 10 ),
     RENO NUMBER( 5 ),
-    content NVARCHAR2( 50 ) NOT NULL ,
+    CONTENT NVARCHAR2( 50 ) NOT NULL ,
     RECOMMEND NUMBER( 1 ) NULL
 );
 -- ---------------------------------------------------------------
@@ -118,6 +116,7 @@ CREATE TABLE ASSESSMENT (
 CREATE TABLE DIRECTION (
     MID NUMBER( 5 ),
     DID NUMBER( 5 ),
+        PRIMARY KEY(MID , DID),
         FOREIGN KEY(MID) REFERENCES MOVIE(MID),
         FOREIGN KEY(DID) REFERENCES DIRECTOR(DID)
 );
@@ -126,11 +125,10 @@ CREATE TABLE DIRECTION (
 CREATE TABLE APPEAR (
     MID NUMBER( 5 ),
     AID NUMBER( 5 ),
+        PRIMARY KEY(MID , AID),
         FOREIGN KEY(MID) REFERENCES MOVIE(MID),
         FOREIGN KEY(AID) REFERENCES ACTOR(AID)
 );
--- =================================================================잠시 보류
-
 -- ---------------------------------------------------------------
 -- 제공 테이블
 CREATE TABLE PROVIDE (
@@ -145,6 +143,7 @@ CREATE TABLE PROVIDE (
 CREATE TABLE DIRECTOR_FILMOGRAPHY (
     DID NUMBER( 5 ),
     FILMOGRAPHY NVARCHAR2( 20 ) NOT NULL,
+        PRIMARY KEY(DID),
         FOREIGN KEY(DID) REFERENCES DIRECTOR(DID)
 );
 -- ---------------------------------------------------------------
@@ -152,5 +151,6 @@ CREATE TABLE DIRECTOR_FILMOGRAPHY (
 CREATE TABLE ACTOR_FILMOGRAPHY (
     AID NUMBER( 5 ),
     FILMOGRAPHY NVARCHAR2( 20 ) NOT NULL,
+        PRIMARY KEY(AID),
         FOREIGN KEY(AID) REFERENCES ACTOR(AID)
 );
