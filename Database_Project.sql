@@ -13,7 +13,6 @@ INSERT INTO MEMBER VALUES('dudtn00', 'zero', '1998-07-04', '남', 'dndn@gmail.co
 INSERT INTO MEMBER VALUES('dbfl5454', 'yuri11', '1996-03-28', '여', 'abc@naver.com');
 INSERT INTO MEMBER VALUES('ooooo2', 'o2', '1990-01-16', '여', 'h2o@naver.com');
 INSERT INTO MEMBER VALUES('qq1dd', 'ase2', '1987-09-18', '남', 'dmm@gmail.com');
-
 -- ---------------------------------------------------------------
 -- 영화 테이블
 CREATE TABLE MOVIE (
@@ -37,11 +36,6 @@ INSERT INTO MOVIE VALUES (0008, '서치', '2018년 8월 29일', '101분', '미�
 INSERT INTO MOVIE VALUES (0009, '세 얼간이', '2011년 8월', '170분', '인도', '코미디'); 
 INSERT INTO MOVIE VALUES (0010, '아바타', '2009년 12월 17일', '162분', '미국', 'SF');
 
-                    -- 검색 예제
-                    -- 1981년에 출생한 배우정보를 검색하시오.
-                    SELECT *
-                    FROM ACTOR
-                    WHERE BIRTH LIKE '1981년%';
 -- ---------------------------------------------------------------
 -- 리뷰 테이블
 CREATE TABLE REVIEW (
@@ -97,6 +91,12 @@ INSERT INTO ACTOR VALUES (0004, '톰 행크스', '미국', '1956년 7월 9일');
 INSERT INTO ACTOR VALUES (0005, '이하늬', '한국', '1983년 3월 2일');
 INSERT INTO ACTOR VALUES (0006, '조여정', '한국', '1981년 2월 10일');
 INSERT INTO ACTOR VALUES (0007, '크리스 에반스', '미국', '1981년 6월 13일');
+
+                    -- 검색 예제
+                    -- 1981년에 출생한 배우정보를 검색하시오.
+                    SELECT *
+                    FROM ACTOR
+                    WHERE BIRTH LIKE '1981년%';
 -- ---------------------------------------------------------------
 -- 영화제 테이블
 CREATE TABLE FESTIVAL (
