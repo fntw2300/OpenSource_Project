@@ -2,20 +2,39 @@
 CREATE TABLE MEMBER (
     MEMID NVARCHAR2( 10 ) NOT NULL  PRIMARY KEY,
     NICKNAME NVARCHAR2( 10 ) NOT NULL,
-    BIRTH NVARCHAR2( 20 ) NOT NULL,
+    BIRTH RDATE( 15 ) NOT NULL,
     GENDER NVARCHAR2( 5 ) NOT NULL,
     EMAIL NVARCHAR2( 20 ) NOT NULL
 );
+
+-- 회원 테이블 값 삽입
+INSERT INTO MEMBER VALUES('rlfehd12', 'gildong', '1974-09-05', '남', 'gildong@naver.com'); 
+INSERT INTO MEMBER VALUES('dudtn00', 'zero', '1998-07-04', '남', 'dndn@gmail.com');
+INSERT INTO MEMBER VALUES('dbfl5454', 'yuri11', '1996-03-28', '여', 'abc@naver.com');
+INSERT INTO MEMBER VALUES('ooooo2', 'o2', '1990-01-16', '여', 'h2o@naver.com');
+INSERT INTO MEMBER VALUES('qq1dd', 'ase2', '1987-09-18', '남', 'dmm@gmail.com');
 -- ---------------------------------------------------------------
 -- 영화 테이블
 CREATE TABLE MOVIE (
     MID NUMBER(5) NOT NULL PRIMARY KEY,
     MNAME NVARCHAR2( 20 ) NOT NULL,
-    OPENING NVARCHAR2( 20 ) NOT NULL,
+    OPENING RDATE( 20 ) NOT NULL,
     RUNTIME NVARCHAR2( 10 ) NOT NULL,
     COUNTARY NVARCHAR2( 15 ) NOT NULL,
     GENRE NVARCHAR2( 10 ) NOT NULL
 );
+
+-- 영화 테이블 값 삽입
+INSERT INTO MOVIE VALUES (0001, '기생충', '2019-05-30', '132분', '한국', '블랙 코미디'); 
+INSERT INTO MOVIE VALUES (0002, '겨울왕국 2', '2019-11-21', '103분', '미국', '애니메이션'); 
+INSERT INTO MOVIE VALUES (0003, '센과 치히로의 행방불명', '2002-06-28', '126분', '일본', '애니메이션'); 
+INSERT INTO MOVIE VALUES (0004, '설국열차', '2013-08-01', '126분', '한국', 'SF');
+INSERT INTO MOVIE VALUES (0005, '인셉션', '2010-07-21', '148분', '미국', 'SF'); 
+INSERT INTO MOVIE VALUES (0006, '월-E', '2008-08-06', '100분', '미국', '애니메이션');
+INSERT INTO MOVIE VALUES (0007, '업', '2009-07-29', '101분', '미국', '애니메이션'); 
+INSERT INTO MOVIE VALUES (0008, '서치', '2018-08-29', '101분', '미국', '드라마');
+INSERT INTO MOVIE VALUES (0009, '세 얼간이', '2011-08-12', '170분', '인도', '코미디'); 
+INSERT INTO MOVIE VALUES (0010, '아바타', '2009-12-17', '162분', '미국', 'SF');
 -- ---------------------------------------------------------------
 -- 리뷰 테이블
 CREATE TABLE REVIEW (
