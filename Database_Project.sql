@@ -6,6 +6,14 @@ CREATE TABLE MEMBER (
     GENDER NVARCHAR2( 5 ) NOT NULL,
     EMAIL NVARCHAR2( 20 ) NOT NULL
 );
+
+-- 회원 테이블 값 삽입
+INSERT INTO MEMBER VALUES('rlfehd12', 'gildong', '1974-09-05', '남', 'gildong@naver.com'); 
+INSERT INTO MEMBER VALUES('dudtn00', 'zero', '1998-07-04', '남', 'dndn@gmail.com');
+INSERT INTO MEMBER VALUES('dbfl5454', 'yuri11', '1996-03-28', '여', 'abc@naver.com');
+INSERT INTO MEMBER VALUES('ooooo2', 'o2', '1990-01-16', '여', 'h2o@naver.com');
+INSERT INTO MEMBER VALUES('qq1dd', 'ase2', '1987-09-18', '남', 'dmm@gmail.com');
+
 -- ---------------------------------------------------------------
 -- 영화 테이블
 CREATE TABLE MOVIE (
@@ -16,6 +24,19 @@ CREATE TABLE MOVIE (
     COUNTARY NVARCHAR2( 15 ) NOT NULL,
     GENRE NVARCHAR2( 10 ) NOT NULL
 );
+
+-- 영화 테이블 값 삽입
+INSERT INTO MOVIE VALUES (0001, '기생충', '2019년 5월 30일', '132분', '한국', '블랙 코미디'); 
+INSERT INTO MOVIE VALUES (0002, '겨울왕국 2', '2019년 11월 21일', '103분', '미국', '애니메이션'); 
+INSERT INTO MOVIE VALUES (0003, '센과 치히로의 행방불명', '2002년 6월 28일', '126분', '일본', '애니메이션'); 
+INSERT INTO MOVIE VALUES (0004, '설국열차', '2013년 8월 1일', '126분', '한국', 'SF');
+INSERT INTO MOVIE VALUES (0005, '인셉션', '2010년 7월 21일', '148분', '미국', 'SF'); 
+INSERT INTO MOVIE VALUES (0006, '월-E', '2008년 8월 6일', '100분', '미국', '애니메이션');
+INSERT INTO MOVIE VALUES (0007, '업', '2009년 7월 29일', '101분', '미국', '애니메이션'); 
+INSERT INTO MOVIE VALUES (0008, '서치', '2018년 8월 29일', '101분', '미국', '드라마');
+INSERT INTO MOVIE VALUES (0009, '세 얼간이', '2011년 8월', '170분', '인도', '코미디'); 
+INSERT INTO MOVIE VALUES (0010, '아바타', '2009년 12월 17일', '162분', '미국', 'SF');
+
 -- ---------------------------------------------------------------
 -- 리뷰 테이블
 CREATE TABLE REVIEW (
