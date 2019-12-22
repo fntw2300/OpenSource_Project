@@ -2,7 +2,7 @@
 CREATE TABLE MEMBER (
     MEMID NVARCHAR2( 10 ) NOT NULL  PRIMARY KEY,
     NICKNAME NVARCHAR2( 10 ) NOT NULL,
-    BIRTH DATE( 15 ) NOT NULL,
+    BIRTH DATE NOT NULL,
     GENDER NVARCHAR2( 5 ) NOT NULL,
     EMAIL NVARCHAR2( 20 ) NOT NULL
 );
@@ -18,29 +18,24 @@ INSERT INTO MEMBER VALUES('qq1dd', 'ase2', '1987-09-18', '남', 'dmm@gmail.com')
 CREATE TABLE MOVIE (
     MID NUMBER(5) NOT NULL PRIMARY KEY,
     MNAME NVARCHAR2( 20 ) NOT NULL,
-    OPENING DATE( 20 ) NOT NULL,
-    RUNTIME NVARCHAR2( 10 ) NOT NULL,
+    OPENING DATE NOT NULL,
+    RUNTIME NUMBER( 4 ) NOT NULL,
     COUNTARY NVARCHAR2( 15 ) NOT NULL,
     GENRE NVARCHAR2( 10 ) NOT NULL
 );
 
 -- 영화 테이블 값 삽입
-INSERT INTO MOVIE VALUES (0001, '기생충', '2019-05-30', '132분', '한국', '블랙 코미디'); 
-INSERT INTO MOVIE VALUES (0002, '겨울왕국 2', '2019-11-21', '103분', '미국', '애니메이션'); 
-INSERT INTO MOVIE VALUES (0003, '센과 치히로의 행방불명', '2002-06-28', '126분', '일본', '애니메이션'); 
-INSERT INTO MOVIE VALUES (0004, '설국열차', '2013-08-01', '126분', '한국', 'SF');
-INSERT INTO MOVIE VALUES (0005, '인셉션', '2010-07-21', '148분', '미국', 'SF'); 
-INSERT INTO MOVIE VALUES (0006, '월-E', '2008-08-06', '100분', '미국', '애니메이션');
-INSERT INTO MOVIE VALUES (0007, '업', '2009-07-29', '101분', '미국', '애니메이션'); 
-INSERT INTO MOVIE VALUES (0008, '서치', '2018-08-29', '101분', '미국', '드라마');
-INSERT INTO MOVIE VALUES (0009, '세 얼간이', '2011-08-12', '170분', '인도', '코미디'); 
-INSERT INTO MOVIE VALUES (0010, '아바타', '2009-12-17', '162분', '미국', 'SF');
+INSERT INTO MOVIE VALUES (0001, '기생충', '2019-05-30', '132', '한국', '블랙 코미디'); 
+INSERT INTO MOVIE VALUES (0002, '겨울왕국 2', '2019-11-21', '103', '미국', '애니메이션'); 
+INSERT INTO MOVIE VALUES (0003, '센과 치히로의 행방불명', '2002-06-28', '126', '일본', '애니메이션'); 
+INSERT INTO MOVIE VALUES (0004, '설국열차', '2013-08-01', '126', '한국', 'SF');
+INSERT INTO MOVIE VALUES (0005, '인셉션', '2010-07-21', '148', '미국', 'SF'); 
+INSERT INTO MOVIE VALUES (0006, '월-E', '2008-08-06', '100', '미국', '애니메이션');
+INSERT INTO MOVIE VALUES (0007, '업', '2009-07-29', '101', '미국', '애니메이션'); 
+INSERT INTO MOVIE VALUES (0008, '서치', '2018-08-29', '101', '미국', '드라마');
+INSERT INTO MOVIE VALUES (0009, '세 얼간이', '2011-08-12', '170', '인도', '코미디'); 
+INSERT INTO MOVIE VALUES (0010, '아바타', '2009-12-17', '162', '미국', 'SF');
 
--- 질의 예제
--- 2011년~2019년에 개봉했던 영화 제목을 검색하시오.
-    SELECT MNAME
-    FROM MOVIE
-    WHERE OPENING >= '20110101' AND OPENING <= '20191231';
 -- ---------------------------------------------------------------
 -- 리뷰 테이블
 CREATE TABLE REVIEW (
@@ -67,41 +62,36 @@ CREATE TABLE DIRECTOR (
     DID NUMBER( 5 ) NOT NULL PRIMARY KEY,
     DNAME NVARCHAR2( 10 ) NOT NULL,
     COUNTARY NVARCHAR2( 15 )  NOT NULL,
-    BIRTH NVARCHAR2( 20 ) NOT NULL
+    BIRTH DATE NOT NULL
 );
 -- 감독 테이블값 삽입
-INSERT INTO DIRECTOR VALUES (0001, '봉준호', '한국', '1969년 9월 14일');
-INSERT INTO DIRECTOR VALUES (0002, '크리스 벅', '미국', '1958년 2월 24일'); 
-INSERT INTO DIRECTOR VALUES (0003, '미야자키 하야오', '일본', '1941년 1월 5일');
-INSERT INTO DIRECTOR VALUES (0004, '크리스토퍼 놀란', '영국', '1970년 7월 30일');
-INSERT INTO DIRECTOR VALUES (0005, '앤드류 스탠튼', '미국', '1965년 12월 3일');
-INSERT INTO DIRECTOR VALUES (0006, '피트 닥터', '미국', '1968년 10월 9일');
-INSERT INTO DIRECTOR VALUES (0007, '아니시 샤간티', '미국', '1991년');
-INSERT INTO DIRECTOR VALUES (0008, '라지쿠마르 히라니', '인도', '1962년 11월 20일');
-INSERT INTO DIRECTOR VALUES (0009, '제임스 카메론', '캐나다', '1954년 8월 16일');
-INSERT INTO DIRECTOR VALUES (0010, '박찬욱', '한국', '1963년 8월 23일');
+INSERT INTO DIRECTOR VALUES (0001, '봉준호', '한국', '1969-09-14');
+INSERT INTO DIRECTOR VALUES (0002, '크리스 벅', '미국', '1958-02-24'); 
+INSERT INTO DIRECTOR VALUES (0003, '미야자키 하야오', '일본', '1941-01-05');
+INSERT INTO DIRECTOR VALUES (0004, '크리스토퍼 놀란', '영국', '1970-07-30');
+INSERT INTO DIRECTOR VALUES (0005, '앤드류 스탠튼', '미국', '1965-12-03');
+INSERT INTO DIRECTOR VALUES (0006, '피트 닥터', '미국', '1968-10-09');
+INSERT INTO DIRECTOR VALUES (0007, '아니시 샤간티', '미국', '1991-01-01');
+INSERT INTO DIRECTOR VALUES (0008, '라지쿠마르 히라니', '인도', '1962-01-20');
+INSERT INTO DIRECTOR VALUES (0009, '제임스 카메론', '캐나다', '1954-08-16');
+INSERT INTO DIRECTOR VALUES (0010, '박찬욱', '한국', '1963-08-23');
 -- ---------------------------------------------------------------
 -- 배우 테이블
 CREATE TABLE ACTOR (
     AID NUMBER( 5 ) NOT NULL PRIMARY KEY,
     ANAME NVARCHAR2( 10 ) NOT NULL,
     COUNTARY NVARCHAR2( 15 ) NOT NULL,
-    BIRTH NVARCHAR2( 20 ) NOT NULL
+    BIRTH DATE NOT NULL
 );
 -- 배우 테이블값 삽입
-INSERT INTO ACTOR VALUES (0001, '송강호', '한국', '1967년 1월 17일');
-INSERT INTO ACTOR VALUES (0002, '디카프리오', '미국', '1974년 11월 11일');
-INSERT INTO ACTOR VALUES (0003, '매튜 매커너히', '미국', '1969년 11월 4일');
-INSERT INTO ACTOR VALUES (0004, '톰 행크스', '미국', '1956년 7월 9일');
-INSERT INTO ACTOR VALUES (0005, '이하늬', '한국', '1983년 3월 2일');
-INSERT INTO ACTOR VALUES (0006, '조여정', '한국', '1981년 2월 10일');
-INSERT INTO ACTOR VALUES (0007, '크리스 에반스', '미국', '1981년 6월 13일');
+INSERT INTO ACTOR VALUES (0001, '송강호', '한국', '1967-01-17');
+INSERT INTO ACTOR VALUES (0002, '디카프리오', '미국', '1974-11-11');
+INSERT INTO ACTOR VALUES (0003, '매튜 매커너히', '미국', '1969-11-04');
+INSERT INTO ACTOR VALUES (0004, '톰 행크스', '미국', '1956-07-09');
+INSERT INTO ACTOR VALUES (0005, '이하늬', '한국', '1983-03-02');
+INSERT INTO ACTOR VALUES (0006, '조여정', '한국', '1981-02-10');
+INSERT INTO ACTOR VALUES (0007, '크리스 에반스', '미국', '1981-06-13일');
 
-                    -- 검색 예제
-                    -- 1981년에 출생한 배우정보를 검색하시오.
-                    SELECT *
-                    FROM ACTOR
-                    WHERE BIRTH LIKE '1981년%';
 -- ---------------------------------------------------------------
 -- 영화제 테이블
 CREATE TABLE FESTIVAL (
