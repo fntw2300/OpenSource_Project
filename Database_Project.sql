@@ -98,6 +98,15 @@ CREATE TABLE FESTIVAL (
     FNO NUMBER( 4 ) NOT NULL PRIMARY KEY,
     FNAME NVARCHAR2( 20 ) NOT NULL
 );
+
+-- 영화제 테이블값 삽입
+INSERT INTO FESTIVAL VALUES (0001, '칸 영화제');
+INSERT INTO FESTIVAL VALUES (0002, '베를린 영화제');
+INSERT INTO FESTIVAL VALUES (0003, '아카데미 상');
+INSERT INTO FESTIVAL VALUES (0004, '휴고상');
+INSERT INTO FESTIVAL VALUES (0005, '골든글로브상');
+INSERT INTO FESTIVAL VALUES (0006, '백상예술대상');
+INSERT INTO FESTIVAL VALUES (0007, '선댄스 영화제');
 -- ---------------------------------------------------------------
 -- 수상 테이블
 CREATE TABLE PRIME (
@@ -109,12 +118,29 @@ CREATE TABLE PRIME (
         PRIMARY KEY (PNO , FNO ),
         FOREIGN KEY(DID) REFERENCES DIRECTOR(DID)
 );
+
+-- 수상 테이블값 삽입
+INSERT INTO PRIME VALUES (0001, 0001, 0001, '기생충', '황금종려상');
+INSERT INTO PRIME VALUES (0002, 0007, 0007, '서치', '관객상');
+INSERT INTO PRIME VALUES (0003, 0003, 0003, '센과 치히로의 행방불명', '장편애니메이션상');
+INSERT INTO PRIME VALUES (0004, 0002, 0003, '센과 치히로의 행방불명', '황금곰상');
+INSERT INTO PRIME VALUES (0005, 0003, 0005, '월-E', '장편애니메이션상');
+INSERT INTO PRIME VALUES (0006, 0004, 0005, '월-E', '최우수 드라마틱 프리젠테이션');
+INSERT INTO PRIME VALUES (0007, 0004, 0004, '인셉션', '최우수 드라마틱 프리젠테이션');
+INSERT INTO PRIME VALUES (0008, 0006, 0001, '설국열차', '영화부문 감독상');
+
 -- ---------------------------------------------------------------
 -- 카테고리 테이블
 CREATE TABLE CATEGORY (
     CATEGORY_ID NUMBER( 10 ) NOT NULL PRIMARY KEY,
     CATEGORY_NAME NVARCHAR2( 10 ) NOT NULL
 );
+
+-- 카테고리 테이블값 삽입
+INSERT INTO CATEGORY VALUES (1, 'DB제보');
+INSERT INTO CATEGORY VALUES (2, '오류');
+INSERT INTO CATEGORY VALUES (3, '이용제안');
+INSERT INTO CATEGORY VALUES (4, '불법사용자 신고');
 -- ---------------------------------------------------------------
 -- 부서 테이블
 CREATE TABLE DEPARTMENT (
@@ -122,6 +148,12 @@ CREATE TABLE DEPARTMENT (
     CATEGORY_ID NUMBER( 10 ) NOT NULL,
             FOREIGN KEY(CATEGORY_ID) REFERENCES CATEGORY(CATEGORY_ID)
 );
+
+-- 부서 테이블값 삽입
+INSERT INTO DEPARTMENT VALUES ('기획부', 1);
+INSERT INTO DEPARTMENT VALUES ('운영부', 2);
+INSERT INTO DEPARTMENT VALUES ('관리부', 3);
+INSERT INTO DEPARTMENT VALUES ('감사팀', 4);
 -- ---------------------------------------------------------------
 -- 관리자 테이블
 CREATE TABLE ADMIN (
@@ -130,6 +162,13 @@ CREATE TABLE ADMIN (
     DEPT NVARCHAR2( 10 ) NOT NULL,
         FOREIGN KEY(DEPT) REFERENCES DEPARTMENT(DEPTNAME) ON DELETE SET NULL
 );
+
+-- 관리자 테이블값 삽입
+INSERT INTO ADMIN VALUES (5642, '김철수', '기획부');
+INSERT INTO ADMIN VALUES (5412, '곽두철', '기획부');
+INSERT INTO ADMIN VALUES (9741, '리청도', '관리부');
+INSERT INTO ADMIN VALUES (2134, '조대척', '감사팀');
+INSERT INTO ADMIN VALUES (5482, '여춘팔', '운영부');
 -- ---------------------------------------------------------------
 -- 카테고리 담당자 테이블
 CREATE TABLE CATEGORY_RESP (
@@ -138,6 +177,13 @@ CREATE TABLE CATEGORY_RESP (
     PRIMARY KEY(ADMIN_ID, CATEGORY_ID),
         FOREIGN KEY(ADMIN_ID, CATEGORY_ID) REFERENCES CATEGORY_RESP(ADMIN_ID, CATEGORY_ID) ON DELETE SET NULL
 );
+
+-- 카테고리 담당자 테이블값 삽입
+INSERT INTO CATEGORY_RESP VALUES (5642, 1);
+INSERT INTO CATEGORY_RESP VALUES (5412, 1);
+INSERT INTO CATEGORY_RESP VALUES (9741, 3);
+INSERT INTO CATEGORY_RESP VALUES (2134, 4);
+INSERT INTO CATEGORY_RESP VALUES (5482, 2);
 -- ---------------------------------------------------------------
 -- DB게시판 테이블
 CREATE TABLE DB_NOTICEBOARD (
