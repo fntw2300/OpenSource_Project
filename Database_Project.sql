@@ -76,7 +76,7 @@ INSERT INTO DIRECTOR VALUES (0008, '라지쿠마르 히라니', '인도', '1962-
 INSERT INTO DIRECTOR VALUES (0009, '제임스 카메론', '캐나다', '1954-08-16');
 INSERT INTO DIRECTOR VALUES (0010, '박찬욱', '한국', '1963-08-23');
 -- ---------------------------------------------------------------
--- 배우 테이블=--0
+-- 배우 테이블
 CREATE TABLE ACTOR (
     AID NUMBER( 5 ) NOT NULL PRIMARY KEY,
     ANAME NVARCHAR2( 10 ) NOT NULL,
@@ -405,17 +405,108 @@ INSERT INTO DIRECTOR_FILMOGRAPHY VALUES (0007, '설국열차');
     ORDER BY 갯수;
 
 -- 16. 한국 출생지이거나 생년월일이 1956년인 배우이름을 검색하시오.
+    SELECT ANAME
+    FROM ACTOR
+    WHERE COUNTARY = '한국' OR BIRTH LIKE '1956년%';
+    
 -- 17. 곽두철씨가 담당한 DB게시판의 제목을 검색하시오.
+    SELECT DB.DBNAME 
+    FROM DB_NOTICEBOARD DB INNER JOIN ADMIN AD
+    ON DB.ADMIN_ID = AD.ADMIN_ID
+    WHERE AD.ADMIN_NAME = '곽두철';
+    
 -- 18. 미국 영화 중 영화명, 개봉일, 상영시간, 장르를 개봉일이 빠른 순으로 검색하시오.
--- 19. 리뷰가 제일 많이 달린 영화명을 검색하시오.
+    SELECT MNAME, OPENING, RUNTIME, GENRE
+    FROM MOVIE
+    WHERE COUNTARY = '미국'
+    ORDER BY OPENING;
+
+-- 19. 리뷰를 2번이상 작성한 회원명을 검색하시오.
+    SELECT MEMID
+    FROM REVIEW
+    GROUP BY MEMID
+    HAVING COUNT(MEMID) >= 2;
+    
 -- 20. 불법사용자 신고 카테고리로 DB게시판에 등록한 회원ID와 회원닉네임을 검색하시오.
--- 21. 회원 중 등록된 이메일이 naver.com이면서 남성인 회원을 검색하시오.
+    SELECT M.MEMID, M.NICKNAME
+    FROM MEMBER M INNER JOIN DB_NOTICEBOARD DB
+    ON M.MEMID = DB.MEMID
+    WHERE CATEGORY_ID = (SELECT CATEGORY_ID
+                        FROM CATEGORY
+                        WHERE CATEGORY_NAME = '불법사용자 신고');
+                        
+-- 21. 회원 중 남성이면서 등록된 이메일이 naver.com이 아닌 회원정보를 검색하시오.
+    SELECT *
+    FROM MEMBER
+    WHERE GENDER = '남' AND EMAIL NOT IN ( SELECT EMAIL
+                                           FROM MEMBER
+                                           WHERE EMAIL LIKE '%@naver.com');
+
 -- 22. 영화제이름과 그에 맞는 수상명을 중복없이 검색하시오.
--- 23. 수상을 가장 많이한 영화를 검색하시오.
--- 24. 기생충 영화를 영화제목, 감독이름, 배우이름을 순서대로 검색하시오.
--- 25. 수상이 없는 영화제목을 검색하시오.
+    SELECT DISTINCT F.FNAME AS 영화제, P.AWARD AS 수상명
+    FROM FESTIVAL F INNER JOIN PRIME P
+    ON F.FNO = P.FNO;
+    
+-- 23. 수상을 2회이상한 영화와 횟수를 검색하시오.
+    SELECT AW_MOVIE, COUNT(AW_MOVIE) AS 횟수
+    FROM PRIME
+    GROUP BY AW_MOVIE
+    HAVING COUNT(AW_MOVIE) >=  2;
+
+-- 24. 기생충 영화를 영화제목, 감독이름, 배우이름을 검색하시오.
+    SELECT M.MNAME, D.DNAME, A.ANAME
+    FROM MOVIE M, DIRECTOR D, ACTOR A
+    WHERE M.MNAME = '기생충'
+     AND  D.DNAME IN (SELECT D.DNAME
+                     FROM DIRECTOR D INNER JOIN DIRECTION DI
+                     ON D.DID = DI.DID
+                     INNER JOIN MOVIE M
+                     ON DI.MID = M.MID
+                     WHERE M.MNAME = '기생충')
+     AND  A.ANAME IN (SELECT A.ANAME
+                     FROM ACTOR A INNER JOIN APPEAR AP
+                     ON A.AID = AP.AID
+                     INNER JOIN MOVIE M
+                     ON AP.MID = M.MID
+                     WHERE M.MNAME = '기생충');
+
+-- 25. 상을 수상한 감독이름을 검색하시오.
+    SELECT DISTINCT D.DNAME
+    FROM DIRECTOR D INNER JOIN PRIME P
+    ON D.DID = P.DID
+    WHERE P.DID  IN (SELECT DID
+                    FROM DIRECTOR);
+                    
 -- 26. 영화테이블에 (11, 조커, 2019년 10월 2일, 123분, 미국, 멜로)를 삽입하시오.
+    INSERT INTO MOVIE VALUES(11, '조커', '2019년 10월 2일', '123분', '미국', '멜로');
+    
+    SELECT *
+    FROM MOVIE
+    WHERE MID =11;
+    
 -- 27. 감독테이블에 (11, 토드 필립스, 미국, 1970년 12월 20일)을 삽입하시오.
+    INSERT INTO DIRECTOR VALUES(11, '토드 필립스', '미국', '1970년 12월 20일');
+    
+    SELECT *
+    FROM DIRECTOR
+    WHERE DID =11;
+    
 -- 28. DB게시판에 (5, 영화 정보 오류입니다, 조커 장르가 멜로인가요?? 느와르입니다만?, qq1dd, 5482, 2)를 삽입하시오.
+    INSERT INTO DB_NOTICEBOARD VALUES(5, '영화 정보 오류입니다', '조커 장르가 멜로인가요?? 느와르입니다만?', 'qq1dd', 5482, 2);
+
+    SELECT *
+    FROM DB_NOTICEBOARD
+    WHERE DBNO = 5;
+    
 -- 29. 조커 영화의 장르를 느와르로 수정하시오.
+    UPDATE MOVIE 
+    SET GENRE = '느와르'
+    WHERE MNAME = '조커';
+    
 -- 30. DB게시판 5번을 삭제하시오.
+    DELETE
+    FROM DB_NOTICEBOARD
+    WHERE DBNO = 5;
+
+    SELECT *
+    FROM DB_NOTICEBOARD;
