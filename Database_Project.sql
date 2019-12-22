@@ -76,7 +76,7 @@ INSERT INTO DIRECTOR VALUES (0008, '라지쿠마르 히라니', '인도', '1962-
 INSERT INTO DIRECTOR VALUES (0009, '제임스 카메론', '캐나다', '1954-08-16');
 INSERT INTO DIRECTOR VALUES (0010, '박찬욱', '한국', '1963-08-23');
 -- ---------------------------------------------------------------
--- 배우 테이블
+-- 배우 테이블=--0
 CREATE TABLE ACTOR (
     AID NUMBER( 5 ) NOT NULL PRIMARY KEY,
     ANAME NVARCHAR2( 10 ) NOT NULL,
@@ -320,20 +320,91 @@ INSERT INTO DIRECTOR_FILMOGRAPHY VALUES (0007, '설국열차');
 -- -----------------------------------------------------------------------
 -- ---------------------------이하 30 질의문 작성---------------------------
 -- 1. 모든여성 회원정보를 검색하시오.
+    SELECT *
+    FROM MEMBER
+    WHERE GENDER = '여';
+    
 -- 2. 모든 영화정보를 검색하시오.
+    SELECT *
+    FROM MOVIE;
+    
 -- 3. 황금종려상을 받은 영화이름을 검색하시오.
+    SELECT AW_MOVIE
+    FROM PRIME
+    WHERE AWARD = '황금종려상';
+    
 -- 4. 기생충 영화에 저장된 모든 리뷰제목과 리뷰내용을 검색하시오.
+    SELECT RE_NAME, RE_CONTENT
+    FROM REVIEW R INNER JOIN MOVIE M
+    ON R.MID = M.MID
+    WHERE M.MNAME = '기생충';
+    
 -- 5. 1981년에 출생한 배우정보를 검색하시오.
+    SELECT *
+    FROM ACTOR
+    WHERE BIRTH LIKE '1981년%';
+    
 -- 6. 아카데미 상에서 수상한 작품명과 수상명을 검색하시오.
+    SELECT P.AW_MOVIE, P.AWARD
+    FROM PRIME P INNER JOIN FESTIVAL F
+    ON P.FNO = F.FNO
+    WHERE F.FNAME = '아카데미 상';
+    
 -- 7. ooooo2 회원이 작성한 리뷰의 영화제목 모두를 검색하시오.
+    SELECT M.MNAME
+    FROM MOVIE M INNER JOIN REVIEW R
+    ON M.MID = R.MID
+    WHERE MEMID = 'ooooo2';
+    
 -- 8. 기획부에서 담당하고 있는 카테고리를 검색하시오.
+    SELECT C.CATEGORY_NAME
+    FROM DEPARTMENT D INNER JOIN CATEGORY C
+    ON D.CATEGORY_ID = C.CATEGORY_ID
+    WHERE D.DEPTNAME = '기획부';
+    
 -- 9. 애니메이션 영화정보를 검색하시오.
+    SELECT *
+    FROM MOVIE
+    WHERE GENRE = '애니메이션';
+    
 -- 10. 봉준호 감독의 영화정보에 저장된 연출작품을 검색하시오.
+    SELECT M.MNAME
+    FROM MOVIE M INNER JOIN DIRECTION D
+    ON M.MID = D.MID
+    INNER JOIN DIRECTOR DR
+    ON D.DID = DR.DID
+    WHERE DR.DNAME = '봉준호';
+    
 -- 11. 앤드류 스탠튼이 수상한 작품명과 수상명을 검색하시오.
--- 13. 평가가 달린 리뷰의 작성자를 검색하시오.
+    SELECT P.AW_MOVIE, P.AWARD
+    FROM PRIME P INNER JOIN DIRECTOR D
+    ON P.DID = D.DID
+    WHERE D.DNAME = '앤드류 스탠튼';
+
+-- 12. 송강호의 필모그래피를 검색하시오.
+   SELECT AF.FILMOGRAPHY
+   FROM  ACTOR A INNER JOIN ACTOR_FILMOGRAPHY AF
+   ON A.AID = AF.AID
+   WHERE ANAME = '송강호';
+   
+-- 13. 평가가 달린 리뷰의 작성자ID를 중복없이 검색하시오.
+    SELECT DISTINCT R.MEMID
+    FROM ASSESSMENT A INNER JOIN REVIEW R
+    ON A.RENO = R.RENO;
+    
 -- 14. 평가 중 추천이 5점인 리뷰제목을 검색하시오.
+    SELECT R.RE_NAME
+    FROM REVIEW R INNER JOIN ASSESSMENT A
+    ON A.RENO = R.RENO
+    WHERE RECOMMEND = 5;
+
 -- 15. 영화의 장르 별 갯수를 검색하시오.
--- 16. 한국 출생지이거나 생년월일이 1956년인 배우를 검색하시오.
+    SELECT GENRE AS 장르, COUNT(GENRE) AS 갯수
+    FROM MOVIE
+    GROUP BY GENRE
+    ORDER BY 갯수;
+
+-- 16. 한국 출생지이거나 생년월일이 1956년인 배우이름을 검색하시오.
 -- 17. 곽두철씨가 담당한 DB게시판의 제목을 검색하시오.
 -- 18. 미국 영화 중 영화명, 개봉일, 상영시간, 장르를 개봉일이 빠른 순으로 검색하시오.
 -- 19. 리뷰가 제일 많이 달린 영화명을 검색하시오.
